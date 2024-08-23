@@ -6,7 +6,7 @@ import { SITE_TITLE, SITE_DESCRIPTION } from '../../consts';
 import { getCollection } from 'astro:content';
 import FormattedDate from '../../components/FormattedDate.astro';
 
-const posts = (await getCollection('blog')).sort(
+const posts = (await getCollection('projects')).sort(
 	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
 );
 ---
@@ -28,7 +28,13 @@ const posts = (await getCollection('blog')).sort(
 				padding: 0;
 			}
 			ul li {
-				width: calc(50% - 1rem);
+				width: calc(33.3333% - 2rem); /* Adjust width to fit 3 items per row */
+			}
+
+			@media (max-width: 720px) {
+				ul li {
+					width: 100%; /* Full width for smaller screens */
+				}
 			}
 			ul li * {
 				text-decoration: none;
@@ -93,7 +99,7 @@ const posts = (await getCollection('blog')).sort(
 					{
 						posts.map((post) => (
 							<li>
-								<a href={`/blog/${post.slug}/`}>
+								<a href={`/projects/${post.slug}/`}>
 									<img width={720} height={360} src={post.data.heroImage} alt="" />
 									<h4 class="title">{post.data.title}</h4>
 									<p class="date">
